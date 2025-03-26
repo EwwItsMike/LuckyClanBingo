@@ -223,7 +223,7 @@ public class LuckyClanBingoPlugin extends Plugin {
         stringBuilder.append("*").append(itemQnty).append(" x ").append(itemName).append("*\n");
         stringBuilder.append("From source: ").append("*").append(npc).append("*\n");
         stringBuilder.append("For a stack value of: ").append("*").append(value).append(" gp*\n");
-
+        stringBuilder.append("-# Powered by Lucky Clan Bingo plugin\n");
         webhookBody.setContent(stringBuilder.toString());
 
         String webhookUrl = config.webhookLink();
