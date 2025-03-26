@@ -1,7 +1,6 @@
 package com.LuckyClan.Bingo;
 
 import com.google.common.base.Splitter;
-import com.google.gson.Gson;
 import com.google.inject.Provides;
 
 import javax.imageio.ImageIO;
@@ -20,7 +19,9 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemStack;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.loottracker.LootReceived;
 import net.runelite.client.ui.DrawManager;
+import net.runelite.http.api.loottracker.LootRecordType;
 import okhttp3.*;
 
 import static net.runelite.http.api.RuneLiteAPI.GSON;
@@ -58,7 +59,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
     private ArrayList<String> items = new ArrayList<>();
 
-    private String lastNpcKilled = "";
+    private String lastLootSource = "";
 
     private static String DUPE_CHAMPSCROLL = "You have a funny feeling that you would have received a Champion's scroll";
     private static String PET = "You have a funny feeling like you're being followed";
@@ -104,10 +105,29 @@ public class LuckyClanBingoPlugin extends Plugin {
 
     @Subscribe
     public void onNpcLootReceived(NpcLootReceived event) {
-        NPC npc = event.getNpc();
-        lastNpcKilled = npc.getName();
-        AtomicReference<String> npcName = new AtomicReference<>(npc.getName());
-        Collection<ItemStack> itemsReceived = event.getItems();
+        lastLootSource = event.getNpc().getName();
+        handleReceivedLoot(event.getItems());
+    }
+
+    @Subscribe
+    public void onLootReceived(LootReceived event){
+        if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET){
+            return;
+        }
+
+        lastLootSource = event.getName();
+        handleReceivedLoot(event.getItems());
+    }
+
+    //Source: Discord Loot Logger plugin by Adam
+    private byte[] convertImageToByteArray(BufferedImage bufferedImage) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", out);
+        return out.toByteArray();
+    }
+
+    private void handleReceivedLoot(Collection<ItemStack> drops) {
+        AtomicReference<String> npcName = new AtomicReference<>(lastLootSource);
 
         if (items.isEmpty()) {
             System.out.println("[Lucky Clan Bingo] ERROR - could not read items list. Retrying.");
@@ -120,7 +140,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             }
         }
 
-        for (ItemStack item : itemsReceived) {
+        for (ItemStack item : drops) {
             ItemComposition comp = itemManager.getItemComposition(item.getId());
             String itemName = comp.getName().toLowerCase(Locale.ROOT);
             int value = itemManager.getItemPrice(item.getId()) * item.getQuantity();
@@ -144,13 +164,6 @@ public class LuckyClanBingoPlugin extends Plugin {
         }
     }
 
-    //Source: Discord Loot Logger plugin by Adam
-    private byte[] convertImageToByteArray(BufferedImage bufferedImage) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", out);
-        return out.toByteArray();
-    }
-
     @Subscribe
     public void onChatMessage(ChatMessage chatmessage) {
 
@@ -168,7 +181,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                 System.out.println("[Lucky Clan Bingo] WARNING - thread sleeping was interrupted.");
             }
 
-            npcName.set(lastNpcKilled);
+            npcName.set(lastLootSource);
 
             if (message.contains(DUPE_CHAMPSCROLL)) {
                 drawManager.requestNextFrameListener(image -> {
@@ -178,6 +191,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                         bytes = convertImageToByteArray(bufImg);
                     } catch (IOException ioe) {
                         System.out.println("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                        return;
                     }
 
                     sendWebhook(npcName.get(), 1, 0, "Duplicate champion's scroll", bytes);
@@ -190,6 +204,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                         bytes = convertImageToByteArray(bufImg);
                     } catch (IOException ioe) {
                         System.out.println("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                        return;
                     }
 
                     sendWebhook(npcName.get(), 1, 0, "Funny feeling...", bytes);
@@ -206,7 +221,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         stringBuilder.append("\n**").append(playerName).append("**").append(" received:\n\n");
         stringBuilder.append("*").append(itemQnty).append(" x ").append(itemName).append("*\n");
-        stringBuilder.append("From NPC: ").append("*").append(npc).append("*\n");
+        stringBuilder.append("From source: ").append("*").append(npc).append("*\n");
         stringBuilder.append("For a stack value of: ").append("*").append(value).append(" gp*\n");
 
         webhookBody.setContent(stringBuilder.toString());
