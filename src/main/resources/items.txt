@@ -39,7 +39,7 @@ Araxyte head
 Bryophyta's essence
 Tyrannical ring
 Dragon pickaxe
-Dragon 2H sword
+Dragon 2h sword
 Claws of callisto
 Voidwaker hilt
 Treasonous ring
@@ -143,7 +143,7 @@ Tanzanite mutagen
 Twisted bow
 Elder maul
 Kodai insignia
-Tumeken's shadow
+Tumeken's shadow (uncharged)
 Scythe of vitur (uncharged)
 Ancestral hat
 Ancestral robe top
@@ -236,7 +236,7 @@ Abyssal blue dye
 Abyssal red dye
 Abyssal green dye
 Abyssal lantern
-Ring of endurance
+Ring of endurance (uncharged)
 Basilisk jaw
 Granite longsword
 Granite boots
@@ -364,3 +364,58 @@ Awakener's orb
 Dagon'hai hat
 Dagon'hai robe top
 Dagon'hai robe bottom
+Shaman mask
+Flippers
+Mudskipper hat
+Ancient ceremonial mask
+Ancient ceremonial top
+Ancient ceremonial legs
+Ancient ceremonial gloves
+Ancient ceremonial boots
+Blood essence
+Broken dragon hasta
+Fedora
+Chromium ingot
+Scurrius' spine
+Pyromancer garb
+Pyromancer hood
+Pyromancer robe
+Pyromancer boots
+Warm gloves
+Bruma torch
+Torn prayer scroll
+Breach of the scarab
+Eye of the corruptor
+Jewel of the sun
+Team cape zero
+Team cape i
+Team cape x
+Cape of skulls
+Monk's robe top (g)
+Monk's robe (g)
+Gilded platebody
+Gilded platelegs
+Gilded plateskirt
+Gilded full helm
+Gilded kiteshield
+Gilded med helm
+Gilded chainbody
+Gilded sq shield
+Gilded 2h sword
+Gilded spear
+Gilded hasta
+Gilded coif
+Gilded d'hide vambraces
+Gilded d'hide body
+Gilded d'hide chaps
+Gilded pickaxe
+Gilded axe
+Gilded spade
+Ring of nature
+Lava dragon mask
+Bucket helm (g)
+Ring of coins
+Dragon pickaxe (broken)
+Granite helm
+Warped sceptre (uncharged)
+Mask of ranul
