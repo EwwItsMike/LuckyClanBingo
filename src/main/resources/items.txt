@@ -419,3 +419,9 @@ Dragon pickaxe (broken)
 Granite helm
 Warped sceptre (uncharged)
 Mask of ranul
+Dragon platelegs
+Dragon plateskirt
+Smoke quartz
+Blood quartz
+Ice quartz
+Shadow quartz
