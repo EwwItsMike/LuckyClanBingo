@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ItemComposition;
-import net.runelite.api.NPC;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -37,9 +36,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @PluginDescriptor(
-        name = "LuckyClanBingo",
+        name = "Lucky Clan Bingo",
         description = "Sends a screenshot, player name and drop source to a Discord webhook when receiving a drop from a specified set of items.",
-        tags = {"discord", "loot", "clan", "event", "bingo"}
+        tags = {"discord", "loot", "clan", "event", "bingo", "screenshot"}
 )
 public class LuckyClanBingoPlugin extends Plugin {
     @Inject
@@ -172,16 +171,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         new Thread(() -> {
             String message = chatmessage.getMessage();
-            AtomicReference<String> npcName = new AtomicReference<String>();
-
-            try {
-                //Attempt to wait for a little bit, to set npc name correctly
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                System.out.println("[Lucky Clan Bingo] WARNING - thread sleeping was interrupted.");
-            }
-
-            npcName.set(lastLootSource);
+            AtomicReference<String> npcName = new AtomicReference<String>(lastLootSource);
 
             if (message.contains(DUPE_CHAMPSCROLL)) {
                 drawManager.requestNextFrameListener(image -> {
