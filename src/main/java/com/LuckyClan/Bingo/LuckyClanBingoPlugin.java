@@ -69,19 +69,19 @@ public class LuckyClanBingoPlugin extends Plugin {
     @Override
     protected void startUp() throws Exception {
 
-        System.out.println("[Lucky Clan Bingo] plugin starting...");
+       log.info("[Lucky Clan Bingo] plugin starting...");
 
         try {
             if (!loadItems())
-                System.out.println("[Lucky Clan Bingo] ERROR - could not load.");
+                log.error("[Lucky Clan Bingo] ERROR - could not load.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
     @Override
     protected void shutDown() throws Exception {
-        System.out.println("[Lucky Clan Bingo] shutting down.");
+        log.info("[Lucky Clan Bingo] shutting down.");
     }
 
     private boolean loadItems() throws Exception {
@@ -96,7 +96,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
             return true;
         } catch (Exception e) {
-            System.out.println("[Lucky Clan Bingo] ERROR - could not open items list.");
+            log.error("[Lucky Clan Bingo] ERROR - could not open items list.");
             e.printStackTrace();
         }
         return false;
@@ -129,12 +129,12 @@ public class LuckyClanBingoPlugin extends Plugin {
         AtomicReference<String> npcName = new AtomicReference<>(lastLootSource);
 
         if (items.isEmpty()) {
-            System.out.println("[Lucky Clan Bingo] ERROR - could not read items list. Retrying.");
+            log.error("[Lucky Clan Bingo] ERROR - could not read items list. Retrying.");
 
             try {
                 loadItems();
             } catch (Exception e) {
-                System.out.println("[Lucky Clan Bingo] ERROR - could not reload items list. Aborting.");
+                log.error("[Lucky Clan Bingo] ERROR - could not reload items list. Aborting.");
                 return;
             }
         }
@@ -154,7 +154,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                     try {
                         bytes = convertImageToByteArray(bufImg);
                     } catch (IOException ioe) {
-                        System.out.println("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                        log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
                     }
 
                     sendWebhook(npcName.get(), item.getQuantity(), value, itemName, bytes);
@@ -180,7 +180,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                     try {
                         bytes = convertImageToByteArray(bufImg);
                     } catch (IOException ioe) {
-                        System.out.println("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                        log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
                         return;
                     }
 
@@ -193,7 +193,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                     try {
                         bytes = convertImageToByteArray(bufImg);
                     } catch (IOException ioe) {
-                        System.out.println("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                        log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
                         return;
                     }
 
@@ -218,7 +218,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         String webhookUrl = config.webhookLink();
         if (webhookUrl.isEmpty()) {
-            System.out.println("[Lucky Clan Bingo] ERROR - Webhook url is not set.");
+            log.error("[Lucky Clan Bingo] ERROR - Webhook url is not set.");
             return;
         }
 
@@ -227,7 +227,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                 .addFormDataPart("payload_json", GSON.toJson(webhookBody));
 
         if (screenshot == null) {
-            System.out.println("[Lucky Clan Bingo] ERROR - Screenshot was null.");
+            log.error("[Lucky Clan Bingo] ERROR - Screenshot was null.");
             return;
         }
 
@@ -241,7 +241,7 @@ public class LuckyClanBingoPlugin extends Plugin {
         for (String url : urls) {
             HttpUrl u = HttpUrl.parse(url);
             if (u == null) {
-                System.out.println("[Lucky Clan Bingo] WARNING - Could not parse webhook url. Continuing with next link.");
+                log.warn("[Lucky Clan Bingo] WARNING - Could not parse webhook url. Continuing with next link.");
                 continue;
             }
 
@@ -250,7 +250,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    System.out.println("[Lucky Clan Bingo] ERROR - could not submit webhook message.");
+                    log.error("[Lucky Clan Bingo] ERROR - could not submit webhook message.");
                 }
 
                 @Override
