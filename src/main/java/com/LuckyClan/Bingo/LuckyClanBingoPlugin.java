@@ -13,6 +13,7 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.NpcLootReceived;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemStack;
@@ -65,11 +66,14 @@ public class LuckyClanBingoPlugin extends Plugin {
     private static String DUPE_PET = "You have a funny feeling like you would have been followed";
     private static String INVENT_PET = "You feel something weird sneaking into your backpack";
 
+    private String webhookLink = "";
 
     @Override
     protected void startUp() throws Exception {
 
        log.info("[Lucky Clan Bingo] plugin starting...");
+
+       webhookLink = config.webhookLink();
 
         try {
             if (!loadItems())
@@ -100,6 +104,15 @@ public class LuckyClanBingoPlugin extends Plugin {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Subscribe
+    public void onConfigChanged(ConfigChanged event){
+        if (!event.getGroup().equalsIgnoreCase("LuckyClanBingo"))
+            return;
+
+        log.info("[Lucky Clan Bingo] - Config changed -- updating Webhook link");
+        webhookLink = config.webhookLink();
     }
 
     @Subscribe
@@ -216,8 +229,7 @@ public class LuckyClanBingoPlugin extends Plugin {
         stringBuilder.append("-# Powered by Lucky Clan Bingo plugin\n");
         webhookBody.setContent(stringBuilder.toString());
 
-        String webhookUrl = config.webhookLink();
-        if (webhookUrl.isEmpty()) {
+        if (webhookLink.isEmpty()) {
             log.error("[Lucky Clan Bingo] ERROR - Webhook url is not set.");
             return;
         }
