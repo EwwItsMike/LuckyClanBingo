@@ -100,8 +100,7 @@ public class LuckyClanBingoPlugin extends Plugin {
 
             return true;
         } catch (Exception e) {
-            log.error("[Lucky Clan Bingo] ERROR - could not open items list.");
-            e.printStackTrace();
+            log.error("[Lucky Clan Bingo] ERROR - could not open items list.\n {}", e.getMessage());
         }
         return false;
     }
