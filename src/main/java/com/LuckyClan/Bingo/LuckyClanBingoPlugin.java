@@ -95,6 +95,8 @@ public class LuckyClanBingoPlugin extends Plugin {
              BufferedReader reader = new BufferedReader(streamReader)) {
 
             for (String line; (line = reader.readLine()) != null; ) {
+                if (line.charAt(0) == '#' || line.equals("\n"))
+                    continue;
                 items.add(line.toLowerCase(Locale.ROOT).trim());
             }
 
