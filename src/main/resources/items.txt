@@ -243,8 +243,8 @@ Granite boots
 Dragon axe
 Leaf-bladed sword
 Leaf-bladed battleaxe
-Fire elemental staff crown
-Ice elemental staff crown
+Fire element staff crown
+Ice element staff crown
 Enhanced crystal teleport seed
 Kurask head
 Cockatrice head
