@@ -1,6 +1,6 @@
-Craw's bow
-Thamarron's scepter
-Vigorra's chainmace
+Craw's bow (u)
+Thammarron's sceptre (u)
+Viggora's chainmace (u)
 Amulet of avarice
 Ancient emblem
 Ancient totem
@@ -91,7 +91,7 @@ Bandos chestplate
 Bandos tassets
 Bandos boots
 Bandos hilt
-Black tourmeline core
+Black tourmaline core
 Granite gloves
 Granite hammer
 Granite ring
