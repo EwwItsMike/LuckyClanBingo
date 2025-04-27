@@ -124,11 +124,12 @@ public class LuckyClanBingoPlugin extends Plugin {
 
     @Subscribe
     public void onLootReceived(LootReceived event){
+        lastLootSource = event.getName();
+        
         if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET){
             return;
         }
 
-        lastLootSource = event.getName();
         handleReceivedLoot(event.getItems());
     }
 
