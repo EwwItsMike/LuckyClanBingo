@@ -480,6 +480,8 @@ Odium shard 2
 Odium shard 3
 Fedora
 
+# Yama
+
 # Zulrah
 Uncut onyx
 Magic fang
