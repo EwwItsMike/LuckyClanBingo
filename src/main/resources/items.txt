@@ -332,6 +332,9 @@ Deadeye prayer scroll
 Bludgeon axon
 Bludgeon claw
 Bludgeon spine
+
+# Third age
+
 3rd age full helmet
 3rd age platebody
 3rd age platelegs
@@ -387,6 +390,9 @@ Torn prayer scroll
 Breach of the scarab
 Eye of the corruptor
 Jewel of the sun
+
+#Gilded and other clue rares
+
 Team cape zero
 Team cape i
 Team cape x

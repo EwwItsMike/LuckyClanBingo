@@ -95,7 +95,7 @@ public class LuckyClanBingoPlugin extends Plugin {
              BufferedReader reader = new BufferedReader(streamReader)) {
 
             for (String line; (line = reader.readLine()) != null; ) {
-                if (line.charAt(0) == '#' || line.equals("\n"))
+                if (line.isEmpty() || line.charAt(0) == '#')
                     continue;
                 items.add(line.toLowerCase(Locale.ROOT).trim());
             }
@@ -125,7 +125,7 @@ public class LuckyClanBingoPlugin extends Plugin {
     @Subscribe
     public void onLootReceived(LootReceived event){
         lastLootSource = event.getName();
-        
+
         if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET){
             return;
         }
@@ -228,6 +228,7 @@ public class LuckyClanBingoPlugin extends Plugin {
         stringBuilder.append("*").append(String.format("%,d", itemQnty)).append(" x ").append(itemName).append("*\n");
         stringBuilder.append("From source: ").append("*").append(npc).append("*\n");
         stringBuilder.append("For a stack value of: ").append("*").append(String.format("%,d", value)).append(" gp*\n");
+
         stringBuilder.append("-# Powered by Lucky Clan Bingo plugin\n");
         webhookBody.setContent(stringBuilder.toString());
 
