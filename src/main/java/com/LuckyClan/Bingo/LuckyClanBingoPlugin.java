@@ -71,9 +71,9 @@ public class LuckyClanBingoPlugin extends Plugin {
     @Override
     protected void startUp() throws Exception {
 
-       log.info("[Lucky Clan Bingo] plugin starting...");
+        log.info("[Lucky Clan Bingo] plugin starting...");
 
-       webhookLink = config.webhookLink();
+        webhookLink = config.webhookLink();
 
         try {
             if (!loadItems())
@@ -108,7 +108,7 @@ public class LuckyClanBingoPlugin extends Plugin {
     }
 
     @Subscribe
-    public void onConfigChanged(ConfigChanged event){
+    public void onConfigChanged(ConfigChanged event) {
         if (!event.getGroup().equalsIgnoreCase("LuckyClanBingo"))
             return;
 
@@ -123,10 +123,10 @@ public class LuckyClanBingoPlugin extends Plugin {
     }
 
     @Subscribe
-    public void onLootReceived(LootReceived event){
+    public void onLootReceived(LootReceived event) {
         lastLootSource = event.getName();
 
-        if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET){
+        if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET) {
             return;
         }
 
@@ -187,11 +187,11 @@ public class LuckyClanBingoPlugin extends Plugin {
         if (chatmessage.getType() != ChatMessageType.GAMEMESSAGE)
             return;
 
-        new Thread(() -> {
-            String message = chatmessage.getMessage();
-            AtomicReference<String> npcName = new AtomicReference<String>(lastLootSource);
+        String message = chatmessage.getMessage();
+        AtomicReference<String> npcName = new AtomicReference<String>(lastLootSource);
 
-            if (message.contains(DUPE_CHAMPSCROLL)) {
+        if (message.contains(DUPE_CHAMPSCROLL)) {
+            new Thread(() -> {
                 drawManager.requestNextFrameListener(image -> {
                     BufferedImage bufImg = (BufferedImage) image;
                     byte[] bytes = null;
@@ -204,7 +204,9 @@ public class LuckyClanBingoPlugin extends Plugin {
 
                     sendWebhook(npcName.get(), 1, 0, "Duplicate champion's scroll", bytes);
                 });
-            } else if (message.contains(PET) || message.contains(DUPE_PET) || message.contains(INVENT_PET)) {
+            }).start();
+        } else if (message.contains(PET) || message.contains(DUPE_PET) || message.contains(INVENT_PET)) {
+            new Thread(() -> {
                 drawManager.requestNextFrameListener(image -> {
                     BufferedImage bufImg = (BufferedImage) image;
                     byte[] bytes = null;
@@ -217,8 +219,8 @@ public class LuckyClanBingoPlugin extends Plugin {
 
                     sendWebhook(npcName.get(), 1, 0, "Funny feeling...", bytes);
                 });
-            }
-        }).start();
+            }).start();
+        }
     }
 
     //Source: Discord Loot Logger plugin by Adam
