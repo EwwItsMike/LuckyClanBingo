@@ -154,13 +154,15 @@ public class LuckyClanBingoPlugin extends Plugin {
             }
         }
 
+        List<String> alreadySent = new ArrayList<>();
+
         for (ItemStack item : drops) {
             ItemComposition comp = itemManager.getItemComposition(item.getId());
             String itemName = comp.getName().toLowerCase(Locale.ROOT);
             int value = itemManager.getItemPrice(item.getId()) * item.getQuantity();
 
             //Received item is in predefined list?
-            if (items.stream().anyMatch(itemName::equalsIgnoreCase)) {
+            if (items.stream().anyMatch(itemName::equalsIgnoreCase) && !alreadySent.contains(itemName)) {
 
                 //Source: Discord Loot Logger plugin by Adam
                 drawManager.requestNextFrameListener(image -> {
@@ -172,6 +174,7 @@ public class LuckyClanBingoPlugin extends Plugin {
                         log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
                     }
 
+                    alreadySent.add(itemName);
                     sendWebhook(npcName.get(), item.getQuantity(), value, itemName, bytes);
                 });
             }
