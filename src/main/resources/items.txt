@@ -246,6 +246,7 @@ Dragonstone platebody
 Dragonstone platelegs
 Dragonstone boots
 Dragonstone gauntlets
+Blood shard
 
 # Muspah
 Venator shard
