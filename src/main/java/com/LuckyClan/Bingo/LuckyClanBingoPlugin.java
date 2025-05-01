@@ -11,6 +11,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.NpcID;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -29,10 +30,7 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -67,6 +65,11 @@ public class LuckyClanBingoPlugin extends Plugin {
     private static String INVENT_PET = "You feel something weird sneaking into your backpack";
 
     private String webhookLink = "";
+
+    //Source: Dink plugin
+    private static Set<Integer> SPECIAL_NPC_IDS = Set.of(NpcID.THE_WHISPERER, NpcID.THE_WHISPERER_12205, NpcID.THE_WHISPERER_12206, NpcID.THE_WHISPERER_12207,
+            NpcID.ARAXXOR, NpcID.ARAXXOR_13669, NpcID.BRANDA_THE_FIRE_QUEEN_14148, NpcID.ELDRIC_THE_ICE_KING_14149);
+    public static final Set<String> SPECIAL_LOOT_NPC_NAMES = Set.of("The Whisperer", "Araxxor", "Branda the Fire Queen", "Eldric the Ice King");
 
     @Override
     protected void startUp() throws Exception {
@@ -126,11 +129,13 @@ public class LuckyClanBingoPlugin extends Plugin {
     public void onLootReceived(LootReceived event) {
         lastLootSource = event.getName();
 
-        if (event.getType() != LootRecordType.EVENT && event.getType() != LootRecordType.PICKPOCKET) {
-            return;
+        if (event.getType() == LootRecordType.NPC && SPECIAL_LOOT_NPC_NAMES.contains(event.getName())) {
+            handleReceivedLoot(event.getItems());
+        }
+        else if (event.getType() == LootRecordType.EVENT || event.getType() == LootRecordType.PICKPOCKET){
+            handleReceivedLoot(event.getItems());
         }
 
-        handleReceivedLoot(event.getItems());
     }
 
     //Source: Discord Loot Logger plugin by Adam
