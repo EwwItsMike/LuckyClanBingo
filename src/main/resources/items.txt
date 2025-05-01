@@ -249,6 +249,7 @@ Dragonstone gauntlets
 Blood shard
 Dragon platelegs
 Dragon plateskirt
+Scurrius' spine
 
 # Muspah
 Venator shard
