@@ -250,6 +250,7 @@ Blood shard
 Dragon platelegs
 Dragon plateskirt
 Scurrius' spine
+Teleport anchoring scroll
 
 # Muspah
 Venator shard
