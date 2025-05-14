@@ -486,6 +486,11 @@ Odium shard 3
 Fedora
 
 # Yama
+Oathplate helm
+Oathplate chest
+Oathplate legs
+Soulflame horn
+Rite of vile transference
 
 # Zulrah
 Uncut onyx
