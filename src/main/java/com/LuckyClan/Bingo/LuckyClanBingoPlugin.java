@@ -66,9 +66,6 @@ public class LuckyClanBingoPlugin extends Plugin {
 
     private String webhookLink = "";
 
-    //Source: Dink plugin
-    private static Set<Integer> SPECIAL_NPC_IDS = Set.of(NpcID.THE_WHISPERER, NpcID.THE_WHISPERER_12205, NpcID.THE_WHISPERER_12206, NpcID.THE_WHISPERER_12207,
-            NpcID.ARAXXOR, NpcID.ARAXXOR_13669, NpcID.BRANDA_THE_FIRE_QUEEN_14148, NpcID.ELDRIC_THE_ICE_KING_14149);
     public static final Set<String> SPECIAL_LOOT_NPC_NAMES = Set.of("The Whisperer", "Araxxor", "Branda the Fire Queen", "Eldric the Ice King");
 
     @Override
@@ -128,6 +125,8 @@ public class LuckyClanBingoPlugin extends Plugin {
     @Subscribe
     public void onLootReceived(LootReceived event) {
         lastLootSource = event.getName();
+
+        log.info(String.format("[Lucky Clan Bingo] - eventName: %s", event.getName()));
 
         if (event.getType() == LootRecordType.NPC && SPECIAL_LOOT_NPC_NAMES.contains(event.getName())) {
             handleReceivedLoot(event.getItems());
