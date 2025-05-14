@@ -132,10 +132,12 @@ public class LuckyClanBingoPlugin extends Plugin {
         if (event.getType() == LootRecordType.NPC && SPECIAL_LOOT_NPC_NAMES.contains(event.getName())) {
             handleReceivedLoot(event.getItems());
         }
-        else if (event.getType() == LootRecordType.EVENT || event.getType() == LootRecordType.PICKPOCKET){
+        else if (event.getType() == LootRecordType.EVENT || event.getType() == LootRecordType.PICKPOCKET || event.getType() == LootRecordType.PLAYER){
+            if (event.getName().equalsIgnoreCase("Loot Chest") || event.getType() == LootRecordType.PLAYER){
+                handlePkLoot(event.getItems());
+            }
             handleReceivedLoot(event.getItems());
         }
-
     }
 
     //Source: Discord Loot Logger plugin by Adam
@@ -143,6 +145,31 @@ public class LuckyClanBingoPlugin extends Plugin {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", out);
         return out.toByteArray();
+    }
+
+    private void handlePkLoot(Collection<ItemStack> loot){
+        int value = 0;
+
+        for (ItemStack item : loot){
+            value += itemManager.getItemPrice(item.getId()) * item.getQuantity();
+        }
+
+        if (value < 1000000){
+            return;
+        }
+
+        int finalValue = value;
+        drawManager.requestNextFrameListener(image -> {
+            BufferedImage bufImg = (BufferedImage) image;
+            byte[] bytes = null;
+            try{
+                bytes = convertImageToByteArray(bufImg);
+            } catch (IOException e) {
+                log.error("[Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+            }
+
+            sendWebhook("A worse pker", 1, finalValue, "PKed goodies", bytes);
+        });
     }
 
     private void handleReceivedLoot(Collection<ItemStack> drops) {
