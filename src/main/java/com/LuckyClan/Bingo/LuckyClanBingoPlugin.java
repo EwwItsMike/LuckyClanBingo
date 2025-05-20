@@ -30,8 +30,7 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -277,7 +276,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             return;
         }
 
-        requestBodyBuilder.addFormDataPart("file", "%s_%s.png".formatted(client.getLocalPlayer().getName(), LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)),
+        requestBodyBuilder.addFormDataPart("file", String.format("%s_%s.png", client.getLocalPlayer().getName(), LocalDateTime.now()),
                 RequestBody.create(MediaType.parse("image/png"), screenshot));
 
         MultipartBody requestBody = requestBodyBuilder.build();
