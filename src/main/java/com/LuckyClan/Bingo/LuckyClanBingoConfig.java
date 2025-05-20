@@ -11,8 +11,17 @@ public interface LuckyClanBingoConfig extends Config
     @ConfigItem(
             keyName = "Webhook",
             name = "Webhook link",
-            description = "Discord webhook link"
+            description = "Discord webhook link or API proxy URL"
     ) default String webhookLink(){
+        return "";
+    }
+    
+    @ConfigItem(
+            keyName = "apiKey",
+            name = "API Key",
+            description = "API key for authentication with proxy (Only leave empty if using discord webhook)",
+            secret = true
+    ) default String apiKey(){
         return "";
     }
 }
