@@ -30,6 +30,8 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -128,9 +130,8 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         if (event.getType() == LootRecordType.NPC && SPECIAL_LOOT_NPC_NAMES.contains(event.getName())) {
             handleReceivedLoot(event.getItems());
-        }
-        else if (event.getType() == LootRecordType.EVENT || event.getType() == LootRecordType.PICKPOCKET || event.getType() == LootRecordType.PLAYER){
-            if (event.getName().equalsIgnoreCase("Loot Chest") || event.getType() == LootRecordType.PLAYER){
+        } else if (event.getType() == LootRecordType.EVENT || event.getType() == LootRecordType.PICKPOCKET || event.getType() == LootRecordType.PLAYER) {
+            if (event.getName().equalsIgnoreCase("Loot Chest") || event.getType() == LootRecordType.PLAYER) {
                 handlePkLoot(event.getItems());
             }
             handleReceivedLoot(event.getItems());
@@ -144,14 +145,14 @@ public class LuckyClanBingoPlugin extends Plugin {
         return out.toByteArray();
     }
 
-    private void handlePkLoot(Collection<ItemStack> loot){
+    private void handlePkLoot(Collection<ItemStack> loot) {
         int value = 0;
 
-        for (ItemStack item : loot){
+        for (ItemStack item : loot) {
             value += itemManager.getItemPrice(item.getId()) * item.getQuantity();
         }
 
-        if (value < 1000000){
+        if (value < 1000000) {
             return;
         }
 
@@ -159,7 +160,7 @@ public class LuckyClanBingoPlugin extends Plugin {
         drawManager.requestNextFrameListener(image -> {
             BufferedImage bufImg = (BufferedImage) image;
             byte[] bytes = null;
-            try{
+            try {
                 bytes = convertImageToByteArray(bufImg);
             } catch (IOException e) {
                 log.error("[Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
@@ -220,35 +221,31 @@ public class LuckyClanBingoPlugin extends Plugin {
         AtomicReference<String> npcName = new AtomicReference<String>(lastLootSource);
 
         if (message.contains(DUPE_CHAMPSCROLL)) {
-            new Thread(() -> {
-                drawManager.requestNextFrameListener(image -> {
-                    BufferedImage bufImg = (BufferedImage) image;
-                    byte[] bytes = null;
-                    try {
-                        bytes = convertImageToByteArray(bufImg);
-                    } catch (IOException ioe) {
-                        log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
-                        return;
-                    }
+            drawManager.requestNextFrameListener(image -> {
+                BufferedImage bufImg = (BufferedImage) image;
+                byte[] bytes = null;
+                try {
+                    bytes = convertImageToByteArray(bufImg);
+                } catch (IOException ioe) {
+                    log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                    return;
+                }
 
-                    sendWebhook(npcName.get(), 1, 0, "Duplicate champion's scroll", bytes);
-                });
-            }).start();
+                sendWebhook(npcName.get(), 1, 0, "Duplicate champion's scroll", bytes);
+            });
         } else if (message.contains(PET) || message.contains(DUPE_PET) || message.contains(INVENT_PET)) {
-            new Thread(() -> {
-                drawManager.requestNextFrameListener(image -> {
-                    BufferedImage bufImg = (BufferedImage) image;
-                    byte[] bytes = null;
-                    try {
-                        bytes = convertImageToByteArray(bufImg);
-                    } catch (IOException ioe) {
-                        log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
-                        return;
-                    }
+            drawManager.requestNextFrameListener(image -> {
+                BufferedImage bufImg = (BufferedImage) image;
+                byte[] bytes = null;
+                try {
+                    bytes = convertImageToByteArray(bufImg);
+                } catch (IOException ioe) {
+                    log.error("Lucky Clan Bingo] ERROR - Cannot convert image to byte array.");
+                    return;
+                }
 
-                    sendWebhook(npcName.get(), 1, 0, "Funny feeling...", bytes);
-                });
-            }).start();
+                sendWebhook(npcName.get(), 1, 0, "Funny feeling...", bytes);
+            });
         }
     }
 
@@ -280,7 +277,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             return;
         }
 
-        requestBodyBuilder.addFormDataPart("file", "image.png",
+        requestBodyBuilder.addFormDataPart("file", "%s_%s.png".formatted(client.getLocalPlayer().getName(), LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)),
                 RequestBody.create(MediaType.parse("image/png"), screenshot));
 
         MultipartBody requestBody = requestBodyBuilder.build();
