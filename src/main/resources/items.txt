@@ -92,6 +92,7 @@ Virtus robe top
 Virtus robe bottom
 Magus vestige
 Leviathan's lure
+Venator vestige
 Executioner's axe head
 Ultor vestige
 Siren's staff
