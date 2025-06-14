@@ -458,7 +458,6 @@ Toktz-mej-tal
 Toktz-xil-ul
 Toktz-ket-xil
 Obsidian cape
-Tzhaar-ket-em
 
 # Vorkath
 Skeletal visage
