@@ -175,7 +175,7 @@ Blood essence
 
 # Hueycoatl
 Dragon hunter wand
-Tome of earth
+Tome of earth (empty)
 Hueycoatl hide
 
 # Jars
@@ -301,8 +301,8 @@ Fire element staff crown
 Ice element staff crown
 
 # Skilling content
-Tome of water
-Tome of fire
+Tome of water (empty)
+Tome of fire (empty)
 Pyromancer garb
 Pyromancer hood
 Pyromancer robe
