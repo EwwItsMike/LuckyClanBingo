@@ -252,6 +252,7 @@ Dragon platelegs
 Dragon plateskirt
 Scurrius' spine
 Teleport anchoring scroll
+Elven signet
 
 # Muspah
 Venator shard
