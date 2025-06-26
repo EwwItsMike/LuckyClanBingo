@@ -11,7 +11,13 @@ public interface LuckyClanBingoConfig extends Config
     @ConfigItem(
             keyName = "Webhook",
             name = "Webhook link",
-            description = "Discord webhook link or API proxy URL"
+            description = "Discord webhook link or API proxy URL",
+            warning = "<html>If you are using a link here that is not a Discord Webhook,"
+                        + "<br>make sure you trust the source."
+                        + "<br>"
+                        + "<br>Any communication over the internet sends your IP address with it,"
+                        + "<br>meaning whoever hosts the server that this plugin is sending screenshots to"
+                        + "<br>will have your in-game name and IP address."
     ) default String webhookLink(){
         return "";
     }
