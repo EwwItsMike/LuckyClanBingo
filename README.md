@@ -96,4 +96,11 @@ All that is left now is to set up the Discord Webhook and the Lucky Clan Bingo p
 - Your participants can go into the Plugin configuration tab on the sidebar of RuneLite. Find the Lucky Clan Bingo plugin in there, and click the cogwheel for the configuration settings.
 - Paste the Webhook URL in the configuration field labelled "Webhook link". That's it!
 
+If your event is making use of a privately hosted server to handle drop submissions, your participants can paste the URL in the same Webhook Link field.
+An API Key field is available in the config which gets attached in the request header.
+
+If you wish to to check if you have set up your plugin correctly, simply check the "Test Link" checkbox in the plugin's config.
+If you are logged in to the game, and the destination where the plugin sends your submissions to returns HTML code 200 ("OK"), 
+you will receive a message in your chatbox.
+
 While the original event was intended for Solo participants, you may quite easily adept it for a Teams-based event by setting up a single Participants sheet for a team.
