@@ -7,11 +7,9 @@ import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.ItemComposition;
+import net.runelite.api.*;
 import net.runelite.api.events.ChatMessage;
-import net.runelite.api.NpcID;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -45,10 +43,16 @@ public class LuckyClanBingoPlugin extends Plugin {
     private Client client;
 
     @Inject
+    private ClientThread clientThread;
+
+    @Inject
     private LuckyClanBingoConfig config;
 
     @Inject
     private ItemManager itemManager;
+
+    @Inject
+    private ConfigManager configManager;
 
     @Inject
     private DrawManager drawManager;
@@ -115,6 +119,61 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         log.info("[Lucky Clan Bingo] - Config changed -- updating Webhook link");
         webhookLink = config.webhookLink();
+
+        if (config.testLink()){
+            testLink();
+        }
+    }
+
+    private void testLink(){
+        if (config.webhookLink().isEmpty() || client.getGameState() != GameState.LOGGED_IN){
+            configManager.unsetConfiguration("LuckyClanBingo", "testLink");
+            return;
+        }
+
+        Request.Builder requestBuilder = new Request.Builder();
+        try {
+            requestBuilder.url(config.webhookLink());
+        }
+        catch (IllegalArgumentException e){
+            sendChatMessage("Plugin failed to connect to the specified link.");
+            return;
+        }
+
+        if (!config.apiKey().isEmpty()) {
+            requestBuilder.header("X-API-Key", config.apiKey());
+        }
+
+        Request request = requestBuilder.get().build();
+
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Give failure feedback to user
+                sendChatMessage("Plugin failed to connect to the specified link.");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200){
+                    // Give success feedback to user
+                    sendChatMessage("Plugin is successfully set up!");
+                    response.close();
+                }
+                else {
+                    // Give failure feedback to user
+                    sendChatMessage("Plugin failed to connect to the specified link.");
+                    response.close();
+                }
+            }
+        });
+
+        // Set config checkmark back to False
+        configManager.unsetConfiguration("LuckyClanBingo", "testLink");
+    }
+
+    private void sendChatMessage(String message){
+        clientThread.invokeLater(() -> client.addChatMessage(ChatMessageType.GAMEMESSAGE, "Lucky", message, null));
     }
 
     @Subscribe
@@ -292,11 +351,11 @@ public class LuckyClanBingoPlugin extends Plugin {
 
             // If Api key provided, use it as header, if not then not
             Request.Builder requestBuilder = new Request.Builder().url(url);
-            
+
             if (!config.apiKey().isEmpty()) {
                 requestBuilder.header("X-API-Key", config.apiKey());
             }
-            
+
             Request request = requestBuilder.post(requestBody).build();
 
             okHttpClient.newCall(request).enqueue(new Callback() {

@@ -24,4 +24,14 @@ public interface LuckyClanBingoConfig extends Config
     ) default String apiKey(){
         return "";
     }
+
+    @ConfigItem(
+            keyName = "testLink",
+            name = "Test Link",
+            description = "Test if your link is set correctly by checking this.",
+            position = 3
+    )
+    default boolean testLink(){
+        return false;
+    }
 }
