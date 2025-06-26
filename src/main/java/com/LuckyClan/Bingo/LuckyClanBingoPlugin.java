@@ -290,7 +290,14 @@ public class LuckyClanBingoPlugin extends Plugin {
                 continue;
             }
 
-            Request request = new Request.Builder().url(url).post(requestBody).build();
+            // If Api key provided, use it as header, if not then not
+            Request.Builder requestBuilder = new Request.Builder().url(url);
+            
+            if (!config.apiKey().isEmpty()) {
+                requestBuilder.header("X-API-Key", config.apiKey());
+            }
+            
+            Request request = requestBuilder.post(requestBody).build();
 
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
