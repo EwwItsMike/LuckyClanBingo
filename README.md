@@ -20,8 +20,11 @@ Besides this, in certain events, participants could choose to not submit a drop 
 While this list of items is quite extensive at 433 items at the time of writing, it is possible some potential Bingo tile items were missed. If you wish to get items added to the list, [please create a ticket in the Issues pages of the plugin's repository.](https://github.com/EwwItsMike/LuckyClanBingo/issues)  
 I will add the items as soon as possible.  
 
-</br>  
-</br>  
+### Custom server 
+It is possible to send the screenshots of drops to a custom server, rather than a Discord Webhook.
+These servers may be used to filter out the correct drops, and automate even more of the event.
+Users can add an API-Key in the config for authentication into custom servers.
+
 </br>  
 </br>  
 </br>  
