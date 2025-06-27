@@ -80,12 +80,8 @@ public class LuckyClanBingoPlugin extends Plugin {
 
         webhookLink = config.webhookLink();
 
-        try {
-            if (!loadItems())
-                log.error("[Lucky Clan Bingo] ERROR - could not load.");
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+        loadItems();
+
     }
 
     @Override
@@ -93,23 +89,33 @@ public class LuckyClanBingoPlugin extends Plugin {
         log.info("[Lucky Clan Bingo] shutting down.");
     }
 
-    private boolean loadItems() throws Exception {
+    private void loadItems() throws Exception {
 
-        try (InputStream s = getClass().getResourceAsStream("/items.txt");
-             InputStreamReader streamReader = new InputStreamReader(s, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(streamReader)) {
+        Request.Builder requestBuilder = new Request.Builder().url("https://raw.githubusercontent.com/EwwItsMike/LuckyClanBingo/refs/heads/master/src/main/resources/items.txt");
 
-            for (String line; (line = reader.readLine()) != null; ) {
-                if (line.isEmpty() || line.charAt(0) == '#')
-                    continue;
-                items.add(line.toLowerCase(Locale.ROOT).trim());
+        okHttpClient.newCall(requestBuilder.get().build()).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                log.error("Could not load items list from Github.");
             }
 
-            return true;
-        } catch (Exception e) {
-            log.error("[Lucky Clan Bingo] ERROR - could not open items list.\n {}", e.getMessage());
-        }
-        return false;
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    BufferedReader reader = new BufferedReader(response.body().charStream());
+                    for (String line; (line = reader.readLine()) != null; ){
+                        if (line.isEmpty() || line.charAt(0) == '#')
+                            continue;
+                        items.add(line.toLowerCase(Locale.ROOT).trim());
+                        log.warn(line);
+                    }
+
+                    log.info("Successfully loaded items list.");
+
+                    response.close();
+                }
+            }
+        });
     }
 
     @Subscribe
@@ -149,20 +155,17 @@ public class LuckyClanBingoPlugin extends Plugin {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                // Give failure feedback to user
-                sendChatMessage("Plugin failed to connect to the specified link.");
+                sendChatMessage("Lucky Clan Bingo plugin failed to connect to the specified link.");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() == 200){
-                    // Give success feedback to user
-                    sendChatMessage("Plugin is successfully set up!");
+                    sendChatMessage("Lucky Clan Bingo plugin is successfully set up!");
                     response.close();
                 }
                 else {
-                    // Give failure feedback to user
-                    sendChatMessage("Plugin failed to connect to the specified link.");
+                    sendChatMessage("Lucky Clan Bingo plugin could connect to the destination, but it responded with an error.");
                     response.close();
                 }
             }
