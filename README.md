@@ -30,7 +30,7 @@ I will add the items as soon as possible.
 </br>  
 
 # Example event resources
-The following are Google Sheet documents initially used for a Lucky cc Bingo event. To demonstrate the use of the plugin, and give other clans and communities some resources to get started on their own events.  
+The following are Google Sheet documents initially used for a Lucky cc Bingo event. These are shared to demonstrate the use of the plugin, and give other clans and communities some resources to get started on their own events.  
 
 [Participant template sheet](https://docs.google.com/spreadsheets/d/17YPfy7IFr2w4XRGgF7oGEOrmhYDv_lUiDqBz-REXmlM/edit?usp=sharing)  
 [Tiles master sheet](https://docs.google.com/spreadsheets/d/1qTFFCE7YD2hnktdj5iPAjazOLsdTFJe5Yg2O8suA0qY/edit?usp=sharing)  
