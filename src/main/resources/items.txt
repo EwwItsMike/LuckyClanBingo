@@ -177,6 +177,7 @@ Blood essence
 Dragon hunter wand
 Tome of earth (empty)
 Hueycoatl hide
+Soiled page
 
 # Jars
 Jar of chemicals
@@ -319,6 +320,8 @@ Big swordfish
 Big shark
 Big harpoonfish
 Golden tench
+Burnt page
+Soaked page
 
 # Slayer bosses
 Unsired
