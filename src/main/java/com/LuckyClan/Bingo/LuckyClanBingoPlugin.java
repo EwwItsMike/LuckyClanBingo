@@ -27,7 +27,6 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -107,7 +106,6 @@ public class LuckyClanBingoPlugin extends Plugin {
                         if (line.isEmpty() || line.charAt(0) == '#')
                             continue;
                         items.add(line.toLowerCase(Locale.ROOT).trim());
-                        log.warn(line);
                     }
 
                     log.info("Successfully loaded items list.");
