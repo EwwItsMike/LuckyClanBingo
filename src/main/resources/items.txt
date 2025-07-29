@@ -85,6 +85,11 @@ Ballista limbs
 Ballista spring
 Monkey tail
 
+# Doom of Mokhaiotl
+Avernic threads
+Eye of ayak (uncharged)
+Mokhaiotl cloth
+
 # DT2 bosses
 Eye of the duke
 Virtus mask
