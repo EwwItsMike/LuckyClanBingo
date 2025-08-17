@@ -259,6 +259,8 @@ Dragon plateskirt
 Scurrius' spine
 Teleport anchoring scroll
 Elven signet
+Earthbound tecpatl
+Steel ring
 
 # Muspah
 Venator shard
