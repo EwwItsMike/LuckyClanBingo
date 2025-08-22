@@ -27,6 +27,7 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -74,6 +75,8 @@ public class LuckyClanBingoPlugin extends Plugin {
 
     public static final Set<String> SPECIAL_LOOT_NPC_NAMES = Set.of("The Whisperer", "Araxxor", "Branda the Fire Queen", "Eldric the Ice King", "Yama");
 
+    private static boolean DEBUG = false;
+
     @Override
     protected void startUp() throws Exception {
         log.info("Plugin starting...");
@@ -86,7 +89,28 @@ public class LuckyClanBingoPlugin extends Plugin {
         log.info("Plugin shutting down.");
     }
 
+    private void debugLoadItems(){
+        try (InputStream in = getClass().getResourceAsStream("/debug.txt");
+        InputStreamReader stread = new InputStreamReader(in, StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(stread)){
+
+            for (String line; (line = reader.readLine()) != null;){
+                items.add(line.toLowerCase(Locale.ROOT).trim());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        log.info(items.toString());
+    }
+
     private void loadItems() throws Exception {
+        if (DEBUG){
+            debugLoadItems();
+            return;
+        }
+
         Request.Builder requestBuilder = new Request.Builder().url("https://raw.githubusercontent.com/EwwItsMike/LuckyClanBingo/refs/heads/master/src/main/resources/items.txt");
 
         okHttpClient.newCall(requestBuilder.get().build()).enqueue(new Callback() {
