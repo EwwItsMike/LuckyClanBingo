@@ -458,6 +458,17 @@ Cursed phalanx
 Breach of the scarab
 Eye of the corruptor
 Jewel of the sun
+Jewel of amascut
+Thread of elidinis
+Cache of runes
+Masori crafting kit
+Menaphite ornament kit
+Remnant of akkha
+Remnant of ba-ba
+Remnant of kephri
+Remnant of zebak
+Ancient remnant
+Cursed phalanx
 
 # Tzhaar
 Obsidian helm
