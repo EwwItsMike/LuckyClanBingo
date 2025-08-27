@@ -59,7 +59,7 @@ Sunfire fanatic helm
 Sunfire fanatic cuirass
 Sunfire fanatic chausses
 Tonalztics of ralos
-Dizana's quiver
+Dizana's quiver (uncharged)
 
 # Corporeal beast
 Elysian sigil
@@ -261,6 +261,7 @@ Teleport anchoring scroll
 Elven signet
 Earthbound tecpatl
 Steel ring
+Pharaoh's sceptre (uncharged)
 
 # Muspah
 Venator shard
