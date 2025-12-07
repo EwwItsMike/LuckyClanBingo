@@ -199,6 +199,7 @@ Jar of spirits
 Jar of stone
 Jar of swamp
 Jar of venom
+Jar of feathers
 
 # Minigames
 Dragon pickaxe (broken)
@@ -262,6 +263,10 @@ Elven signet
 Earthbound tecpatl
 Steel ring
 Pharaoh's sceptre (uncharged)
+Antler guard
+Alchemist's signet
+Broken antler
+Horn of plenty (empty)
 
 # Muspah
 Venator shard
@@ -309,6 +314,31 @@ Mystic vigour prayer scroll
 Deadeye prayer scroll
 Fire element staff crown
 Ice element staff crown
+
+# Sailing related
+Belle's folly (tarnished)
+Barracuda paint
+Shark paint
+Inky paint
+Angler's paint
+Salvor's paint
+Armadylean paint
+Zamorakian paint
+Guthixian paint
+Saradominist paint
+Merchant's paint
+Sandy paint
+Dragon metal sheet
+Dragon nails
+Dragon cannonball
+Echo pearl
+Swift albatross feather
+Narwhal horn
+Ray barbs
+Broken dragon hook
+Bottled storm
+Dragon cannon barrel
+Boat bottle (empty)
 
 # Skilling content
 Tome of water (empty)
