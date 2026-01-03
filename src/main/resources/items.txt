@@ -502,7 +502,7 @@ Ancient remnant
 Cursed phalanx
 
 # Tzhaar
-Obsidian helm
+Obsidian helmet
 Obsidian platebody
 Obsidian platelegs
 Tzhaar-ket-om
