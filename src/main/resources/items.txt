@@ -267,6 +267,21 @@ Antler guard
 Alchemist's signet
 Broken antler
 Horn of plenty (empty)
+Mystic hat
+Mystic robe top
+Mystic robe bottom
+Mystic boots
+Mystic gloves
+Mystic hat (light)
+Mystic robe top (light)
+Mystic robe bottom (light)
+Mystic boots (light)
+Mystic gloves (light)
+Mystic hat (dark)
+Mystic robe top (dark)
+Mystic robe bottom (dark)
+Mystic boots (dark)
+Mystic gloves (dark)
 
 # Muspah
 Venator shard
