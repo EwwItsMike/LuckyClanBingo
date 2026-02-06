@@ -109,6 +109,7 @@ Ice quartz
 Shadow quartz
 Chromium ingot
 Awakener's orb
+Gold ring
 
 # Gauntlet
 Crystal armour seed
