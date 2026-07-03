@@ -203,6 +203,10 @@ Jar of swamp
 Jar of venom
 Jar of feathers
 
+# Maggot King
+Crimson kisten
+Elder venator fang
+
 # Minigames
 Dragon pickaxe (broken)
 Runescroll of bloodbark
