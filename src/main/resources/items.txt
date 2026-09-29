@@ -41,6 +41,7 @@ Onyx
 Metamorphic dust
 Twisted ancestral colour kit
 Torn prayer scroll
+Dark relic
 
 # Champion scrolls
 Imp champion scroll
@@ -58,7 +59,7 @@ Echo crystal
 Sunfire fanatic helm
 Sunfire fanatic cuirass
 Sunfire fanatic chausses
-Tonalztics of ralos
+Tonalztics of ralos (uncharged)
 Dizana's quiver (uncharged)
 
 # Corporeal beast
@@ -108,6 +109,7 @@ Ice quartz
 Shadow quartz
 Chromium ingot
 Awakener's orb
+Gold ring
 
 # Gauntlet
 Crystal armour seed
@@ -199,6 +201,11 @@ Jar of spirits
 Jar of stone
 Jar of swamp
 Jar of venom
+Jar of feathers
+
+# Maggot King
+Crimson kisten
+Elder venator fang
 
 # Minigames
 Dragon pickaxe (broken)
@@ -262,6 +269,25 @@ Elven signet
 Earthbound tecpatl
 Steel ring
 Pharaoh's sceptre (uncharged)
+Antler guard
+Alchemist's signet
+Broken antler
+Horn of plenty (empty)
+Mystic hat
+Mystic robe top
+Mystic robe bottom
+Mystic boots
+Mystic gloves
+Mystic hat (light)
+Mystic robe top (light)
+Mystic robe bottom (light)
+Mystic boots (light)
+Mystic gloves (light)
+Mystic hat (dark)
+Mystic robe top (dark)
+Mystic robe bottom (dark)
+Mystic boots (dark)
+Mystic gloves (dark)
 
 # Muspah
 Venator shard
@@ -293,7 +319,7 @@ Blood moon helm
 
 # Revenants drops
 Craw's bow (u)
-Thammarron's sceptre (u)
+Thammaron's sceptre (u)
 Viggora's chainmace (u)
 Amulet of avarice
 Ancient emblem
@@ -309,6 +335,31 @@ Mystic vigour prayer scroll
 Deadeye prayer scroll
 Fire element staff crown
 Ice element staff crown
+
+# Sailing related
+Belle's folly (tarnished)
+Barracuda paint
+Shark paint
+Inky paint
+Angler's paint
+Salvor's paint
+Armadylean paint
+Zamorakian paint
+Guthixian paint
+Saradominist paint
+Merchant's paint
+Sandy paint
+Dragon metal sheet
+Dragon nails
+Dragon cannonball
+Echo pearl
+Swift albatross feather
+Narwhal horn
+Ray barbs
+Broken dragon hook
+Bottled storm
+Dragon cannon barrel
+Boat bottle (empty)
 
 # Skilling content
 Tome of water (empty)
@@ -472,7 +523,7 @@ Ancient remnant
 Cursed phalanx
 
 # Tzhaar
-Obsidian helm
+Obsidian helmet
 Obsidian platebody
 Obsidian platelegs
 Tzhaar-ket-om
