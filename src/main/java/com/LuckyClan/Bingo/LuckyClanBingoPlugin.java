@@ -99,7 +99,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         log.info(items.toString());
