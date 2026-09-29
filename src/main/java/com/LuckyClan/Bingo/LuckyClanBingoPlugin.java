@@ -269,10 +269,13 @@ public class LuckyClanBingoPlugin extends Plugin {
         for (ItemStack item : drops) {
             ItemComposition comp = itemManager.getItemComposition(item.getId());
             String itemName = comp.getName().toLowerCase(Locale.ROOT);
-            int value = itemManager.getItemPrice(item.getId()) * item.getQuantity();
+            long value = itemManager.getItemPrice(item.getId()) * item.getQuantity();
 
             //Received item is in predefined list?
             if (items.stream().anyMatch(itemName::equalsIgnoreCase) && !alreadySent.contains(itemName)) {
+
+                if (shouldSkipPosting(itemName, npcName.get()))
+                    return;
 
                 //Source: Discord Loot Logger plugin by Adam
                 drawManager.requestNextFrameListener(image -> {
@@ -341,7 +344,7 @@ public class LuckyClanBingoPlugin extends Plugin {
     }
 
     //Source: Discord Loot Logger plugin by Adam
-    private void sendWebhook(String npc, int itemQnty, int value, String itemName, byte[] screenshot) {
+    private void sendWebhook(String npc, int itemQnty, long value, String itemName, byte[] screenshot) {
         WebhookBody webhookBody = new WebhookBody();
         StringBuilder stringBuilder = new StringBuilder();
         String playerName = client.getLocalPlayer().getName();
@@ -403,6 +406,23 @@ public class LuckyClanBingoPlugin extends Plugin {
                 }
             });
         }
+    }
+
+    // Handles cases which are spamming the webhook.
+    private boolean shouldSkipPosting(String source, String itemName) {
+        switch (itemName){
+            // Only send through Gold ring drops from DT2 bosses
+            case "gold ring":
+                if (source.equalsIgnoreCase("vardorvis") || source.equalsIgnoreCase("the whisperer")
+                || source.equalsIgnoreCase("the leviathan") || source.equalsIgnoreCase("duke sucellus")){
+                    return false;
+                }
+                return true;
+            default:
+                break;
+        }
+
+        return false;
     }
 
     @Provides
