@@ -288,6 +288,7 @@ Mystic robe top (dark)
 Mystic robe bottom (dark)
 Mystic boots (dark)
 Mystic gloves (dark)
+Necklace of fangs
 
 # Muspah
 Venator shard
