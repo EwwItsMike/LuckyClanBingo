@@ -274,7 +274,7 @@ public class LuckyClanBingoPlugin extends Plugin {
             //Received item is in predefined list?
             if (items.stream().anyMatch(itemName::equalsIgnoreCase) && !alreadySent.contains(itemName)) {
 
-                if (shouldSkipPosting(itemName, npcName.get()))
+                if (shouldSkipPosting(npcName.get(), itemName))
                     return;
 
                 //Source: Discord Loot Logger plugin by Adam
